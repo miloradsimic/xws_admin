@@ -14,28 +14,28 @@ export class AgentServiceService {
         address: "Adresa A",
         name: "Pero Peric",
         role: "Agent",
-        pib: "112233"
+        tin: "112233"
       },
       {
         email: "jovo@mail.com",
         address: "Adresa B",
         name: "Jovo Jovic",
         role: "Agent",
-        pib: "123456"
+        tin: "123456"
       },
       {
         email: "boro@mail.com",
         address: "Adresa C",
         name: "Boro Boric",
         role: "Agent",
-        pib: "156875"
+        tin: "156875"
       },
       {
         email: "zarko@mail.com",
         address: "Adresa D",
         name: "Zarko Zarkovic",
         role: "Agent",
-        pib: "659966"
+        tin: "659966"
       },
     ]
   }

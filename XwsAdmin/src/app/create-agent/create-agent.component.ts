@@ -37,7 +37,7 @@ export class CreateAgentComponent implements OnInit {
       name: "",
       address: "",
       email: "",
-      pib: "",
+      tin: "",
       role: "Agent",
     }
   }
