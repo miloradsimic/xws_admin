@@ -1,0 +1,40 @@
+<div *ngIf="unapprovedComments.length; else emptyText" class="container">
+  <div class="row">
+    <div class="col-6">
+      <ul class="list-group">
+        <li *ngFor="let unapprovedComment of unapprovedComments" (click)="selectedComment = unapprovedComment" [class.active]="unapprovedComment == selectedComment"
+          class="list-group-item">
+          <span class="badge badge-pill badge-info">{{unapprovedComment.time | date: 'dd.MM.yyyy hh:mm'}}</span> {{unapprovedComment.user.name}}
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="selectedComment != null; else noSelected" class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">{{selectedComment.user.name}}</h4>
+          <h5 class="card-text">Location: {{selectedComment.accommodation.address}}</h5>
+          <p class="card-text">Time: {{selectedComment.time | date: 'dd.MM.yyyy hh:mm'}}</p>
+          <p class="card-text">{{selectedComment.text}}</p>
+          <a class="btn btn-success float-left" (click)="approve(selectedComment)">Approve</a>
+          <a class="btn btn-danger float-right" (click)="disapprove(selectedComment)">Disapprove</a>
+        </div>
+      </div>
+    </div>
+    <ng-template #noSelected>
+      <div class="col-6">
+        <div class="card d-flex justify-content-center align-items-center">
+          <div class="card-body">
+            <h4 class="card-title">No comment selected!</h4>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<ng-template #emptyText>
+  <div class="container p-5">
+    <div class="d-flex my-5 row justify-content-center align-items-center">
+      <h4 class="align-self-center">There are no new comments waiting for approval</h4>
+    </div>
+  </div>
+</ng-template>

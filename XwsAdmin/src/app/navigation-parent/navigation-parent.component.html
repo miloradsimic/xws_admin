@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" routerLink="/">XwsAdmin</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/newComments" routerLinkActive="active">New Comments</a>
+    </li>
+    <li class="nav-item" >
+      <a class="nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/agents" routerLinkActive="active">Agents</a>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav ml-auto">
+    <li *ngIf="loggedAdmin != null" class="nav-item">
+      <a class="nav-link">Logged as: {{loggedAdmin.email}}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Pib</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let agent of agents">
+          <td>{{agent.email}}</td>
+          <td>{{agent.name}}</td>
+          <td>{{agent.address}}</td>
+          <td>{{agent.pib}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <app-create-agent></app-create-agent>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Create Agent</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #agentForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-group">
+          <input id="email" name="email" class="form-control" placeholder="someone@example.com" [(ngModel)]="newAgent.email">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <div class="input-group">
+          <input id="name" name="name" class="form-control" placeholder="John Doe" [(ngModel)]="newAgent.name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <div class="input-group">
+          <input id="address" name="address" class="form-control" placeholder="Ulica XX, Grad" [(ngModel)]="newAgent.address">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pib">Pib</label>
+        <div class="input-group">
+          <input id="pib" name="pib" class="form-control" [(ngModel)]="newAgent.pib">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="d('Cancel click')">Cancel</button>
+  </div>
+</ng-template>
+
+<button class="btn" (click)="open(content)">Create Agent</button>

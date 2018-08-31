@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <table class="table table-bordered table-sm">
+      <thead class="thead-light">
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" [class.table-active]="user == selectedUser" (click)="selectedUser = user">
+          <td>{{user.email}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.address}}</td>
+          <td>{{user.active?'Active':'Blocked'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex py-1 px-5 justify-content-around align-items-center">
+    <button class="btn mx-5 flex-grow-1 btn-success" (click)="activateUser()" [class.disabled]="selectedUser == null || selectedUser.active == true">Activate</button>
+    <button class="btn mx-5 flex-grow-1 btn-danger" (click)="blockUser()" [class.disabled]="selectedUser == null || selectedUser.active == false">Block</button>
+    <button class="btn mx-5 flex-grow-1 btn-dark" (click)="deleteUser()" [class.disabled]="selectedUser == null">Delete</button>
+  </div>
+</div>
