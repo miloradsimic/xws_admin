@@ -16,22 +16,47 @@ export class NewCommentsComponent implements OnInit {
   constructor(private commentService: CommentServiceService) { }
 
   ngOnInit() {
+    let component = this;
     this.selectedComment = null;
-    this.unapprovedComments = this.commentService.getUnapprovedComments();
+    this.commentService.getUnapprovedComments().subscribe(
+      (comments) => {
+        component.unapprovedComments = comments;
+      },
+      (errorResponse) => {
+        alert("Remote error! Server response: " + JSON.stringify(errorResponse));
+      }
+    );
   }
 
-  public approve(comment: Comment) {
-    this.setCommentApprovalState(comment, CommentApprovalState.Approved);
+  public approve(id: number) {
+    let component = this;
+    this.commentService.approve(id).subscribe(
+      (approvedState) => {
+        component.handleApproval(id);
+      },
+      (errorResponse) => {
+        alert("Remote error! Server response: " + JSON.stringify(errorResponse));
+      }
+    );
   }
 
-  public disapprove(comment: Comment) {
-    this.setCommentApprovalState(comment, CommentApprovalState.Unapproved);
+  public disapprove(id: number) {
+    let component = this;
+    this.commentService.disapprove(id).subscribe(
+      (comments) => {
+        component.handleApproval(id);
+      },
+      (errorResponse) => {
+        alert("Remote error! Server response: " + JSON.stringify(errorResponse));
+      }
+    );
   }
 
-  private setCommentApprovalState(comment: Comment, approvalState: CommentApprovalState) {
-    let modifiedComment = this.commentService.setApprovalState(comment, approvalState);
-    if(modifiedComment.approvalState != CommentApprovalState.WaitingForApproval) {
-      let oldCommentIndex = this.unapprovedComments.indexOf(comment);
+  private handleApproval(id: number) {
+    let oldCommentIndex = this.unapprovedComments.findIndex(
+      (item) => {
+        return item.id == id;
+      });
       this.unapprovedComments.splice(oldCommentIndex, 1);
       let length = this.unapprovedComments.length;
       if(length > 0) {
@@ -48,7 +73,6 @@ export class NewCommentsComponent implements OnInit {
       else {
         this.selectedComment = null;
       }
-    }
   }
 
 }

@@ -1,51 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Agent } from '../domain/agent';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentServiceService {
-  private agents: Agent[];
 
-  constructor() {
-    this.agents = [
-      {
-        email: "pero@mail.com",
-        address: "Adresa A",
-        name: "Pero Peric",
-        role: "Agent",
-        tin: "112233"
-      },
-      {
-        email: "jovo@mail.com",
-        address: "Adresa B",
-        name: "Jovo Jovic",
-        role: "Agent",
-        tin: "123456"
-      },
-      {
-        email: "boro@mail.com",
-        address: "Adresa C",
-        name: "Boro Boric",
-        role: "Agent",
-        tin: "156875"
-      },
-      {
-        email: "zarko@mail.com",
-        address: "Adresa D",
-        name: "Zarko Zarkovic",
-        role: "Agent",
-        tin: "659966"
-      },
-    ]
+  constructor(private client: HttpClient) {
+    
   }
 
-  public getAgents(): Agent[] {
-    return this.agents;
+  public getAgents(): Observable<Agent[]> {
+    return this.client.get<Agent[]>("/backend/agent/agents");
   }
 
-  public createAgent(agent: Agent) {
-    this.agents.push(agent);
+  public createAgent(agent: Agent): Observable<Agent> {
+    return this.client.post<Agent>("/backend/agent/agent", agent);
   } 
 
 }

@@ -14,7 +14,19 @@ export class AgentComponent implements OnInit {
   constructor(private agentService: AgentServiceService) { }
 
   ngOnInit() {
-    this.agents = this.agentService.getAgents();
+    let component = this;
+    this.agentService.getAgents().subscribe(
+      (agents) => {
+        component.agents = agents;
+      },
+      (errorResponse) => {
+        alert("Remote error! Server response: " + JSON.stringify(errorResponse));
+      }
+    ); 
+  }
+
+  handleAgentCreated(newAgent: Agent) {
+    this.agents.push(newAgent);
   }
 
 }

@@ -10,14 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class LoginServiceService {
 
-  private authorization: string;
-  private loggedAdmin: Admin;
+  public static USER_KEY: string = "user";
+  public static AUTHORIZATION_KEY: string = "authorization";
 
   public attemptedUrl: string;
 
   constructor(private client: HttpClient) {
-    this.authorization = null;
-    this.loggedAdmin = null;
     this.attemptedUrl = null;
   }
 
@@ -26,27 +24,27 @@ export class LoginServiceService {
     return this.client.post<Admin>('/backend/auth/admin_login', credentials, {
       observe: "response"
     }).pipe<boolean>(map((adminResponse) => {
-      loginService.loggedAdmin = adminResponse.body;
-      loginService.authorization = adminResponse.headers.get("Authorization");
+      sessionStorage.setItem(LoginServiceService.USER_KEY, JSON.stringify(adminResponse.body));
+      sessionStorage.setItem(LoginServiceService.AUTHORIZATION_KEY, adminResponse.headers.get("Authorization"));
       return true;
     }));
   }
 
   public logout() {
-    this.authorization = null;
-    this.loggedAdmin = null;
+    sessionStorage.removeItem(LoginServiceService.USER_KEY);
+    sessionStorage.removeItem(LoginServiceService.AUTHORIZATION_KEY);
     this.attemptedUrl = null;
   }
 
   public getLoggedAdmin(): Admin {
-    return this.loggedAdmin;
+    return JSON.parse(sessionStorage.getItem(LoginServiceService.USER_KEY)) as Admin;
   }
 
   public getAuthorizationHeader(): string {
-    return this.authorization;
+    return sessionStorage.getItem(LoginServiceService.AUTHORIZATION_KEY);
   }
 
   public isLoggedIn(): boolean {
-    return this.loggedAdmin != null;
+    return sessionStorage.getItem(LoginServiceService.USER_KEY) != null;
   }
 }

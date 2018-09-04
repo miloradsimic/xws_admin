@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Agent } from '../domain/agent';
 import { AgentServiceService } from '../services/agent-service.service';
@@ -11,6 +11,8 @@ import { AgentServiceService } from '../services/agent-service.service';
 export class CreateAgentComponent implements OnInit {
 
   newAgent: Agent
+
+  @Output() agentCreated = new EventEmitter<Agent>();
 
   constructor(
     private modalService: NgbModal,
@@ -26,8 +28,15 @@ export class CreateAgentComponent implements OnInit {
     let component = this;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
-        component.agentService.createAgent(component.newAgent);
-        component.initializeNewAgent();
+        component.agentService.createAgent(component.newAgent).subscribe(
+          (newAgent) => {
+            component.agentCreated.emit(newAgent);
+            component.initializeNewAgent();
+          },
+          (errorResponse) => {
+            alert("Remote error! Server response: " + JSON.stringify(errorResponse));
+          }
+        );
       }
     );
   }

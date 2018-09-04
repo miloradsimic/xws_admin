@@ -15,8 +15,8 @@
           <h5 class="card-text">Location: {{selectedComment.accommodation.address}}</h5>
           <p class="card-text">Time: {{selectedComment.time | date: 'dd.MM.yyyy hh:mm'}}</p>
           <p class="card-text">{{selectedComment.text}}</p>
-          <a class="btn btn-success float-left" (click)="approve(selectedComment)">Approve</a>
-          <a class="btn btn-danger float-right" (click)="disapprove(selectedComment)">Disapprove</a>
+          <a class="btn btn-success float-left" (click)="approve(selectedComment.id)">Approve</a>
+          <a class="btn btn-danger float-right" (click)="disapprove(selectedComment.id)">Disapprove</a>
         </div>
       </div>
     </div>
