@@ -10,7 +10,7 @@ Pokretanje:
     npm install -g npm@latest :: update npm-a, opciono  
     cd [Git Repository Path]\XwsAdmin  
     npm install   
-    ng serve --proxy-config proxy.conf.json  
+    ng serve  
 
 Napomena:
 
